@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SLab.Net.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,13 +12,12 @@ namespace SLab.Net
 
         public string ej1()
         {
-            Console.WriteLine("Ingrese un valor como divisor de 10");
+            Console.WriteLine("Ingrese un entero a dividir por 0");
             string input = Console.ReadLine();
-            int value = 10;
             double result = 0;
             try
             {
-                result = value / Int32.Parse(input);
+                result = Int32.Parse(input).divideByZero(); ;
             }
             catch (DivideByZeroException ex)
             {
@@ -42,7 +42,7 @@ namespace SLab.Net
             double result = 0;
             try
             {
-                result = Int32.Parse(input1) / Int32.Parse(input2);
+                result = (double)Int32.Parse(input1) / Int32.Parse(input2);
             }
             catch (DivideByZeroException ex)
             {

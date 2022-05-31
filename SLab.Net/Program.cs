@@ -22,7 +22,7 @@ namespace SLab.Net
             while (c != 's')
             {
                 Console.WriteLine();
-                Console.WriteLine("Ingrese el numero del ejercicio(1-5) que desea ejecutar o 's' para salir del programa");
+                Console.WriteLine("Ingrese el numero del ejercicio(1-4) que desea ejecutar o 's' para salir del programa");
                 c = Console.ReadKey().KeyChar;
                 switch (c)
                 {
