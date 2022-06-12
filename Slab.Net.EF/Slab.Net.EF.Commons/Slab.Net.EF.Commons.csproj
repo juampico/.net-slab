@@ -45,5 +45,11 @@
     <Compile Include="Exceptions\MaxLengthExceededException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Slab.Net.EF.Entities\Slab.Net.EF.Entities.csproj">
+      <Project>{7E1A4774-E097-4193-AF26-8243617D6CEC}</Project>
+      <Name>Slab.Net.EF.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

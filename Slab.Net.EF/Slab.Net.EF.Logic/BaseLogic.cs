@@ -7,11 +7,11 @@ namespace Slab.Net.EF.Logic
     
     public abstract class BaseLogic<T, I> : IABMLogic<T, I> 
     {
-        protected readonly NorthwindContext _context;
+        protected readonly NorthwindContext db;
 
         public BaseLogic()
         {
-            _context = new NorthwindContext();
+            db = new NorthwindContext();
         }
 
         public abstract I Add(T newItem);

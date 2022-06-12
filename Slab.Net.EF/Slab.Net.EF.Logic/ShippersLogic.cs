@@ -11,10 +11,10 @@ namespace Slab.Net.EF.Logic
     public class ShippersLogic : BaseLogic<Shippers, int>
     {
 
-        public override List<Shippers> GetAll() => _context.Shippers.ToList();
+        public override List<Shippers> GetAll() => db.Shippers.ToList();
         public override Shippers Get(int id)
         {
-            Shippers item = _context.Shippers.Find(id);
+            Shippers item = db.Shippers.Find(id);
             if (item == null)
                 throw new NullReferenceException();
             return item;
@@ -27,18 +27,18 @@ namespace Slab.Net.EF.Logic
                 throw new MaxLengthExceededException("CompanyName", 40);
             if (newItem.Phone.Length > 24)
                 throw new MaxLengthExceededException("Phone", 24);
-            _context.Shippers.Add(newItem);
-            _context.SaveChanges();
+            db.Shippers.Add(newItem);
+            db.SaveChanges();
             return newItem.ShipperID;
         }
 
         public override void Remove(int toRemoveId)
         {
-            Shippers toRemove = _context.Shippers.Find(toRemoveId);
+            Shippers toRemove = db.Shippers.Find(toRemoveId);
             if (toRemove != null)
             {
-                _context.Shippers.Remove(toRemove);
-                _context.SaveChanges();
+                db.Shippers.Remove(toRemove);
+                db.SaveChanges();
             }
             else
                 throw new NullReferenceException();
@@ -46,7 +46,7 @@ namespace Slab.Net.EF.Logic
 
         public override void Update(Shippers toUpdate)
         {
-            Shippers shipperToUpdate = _context.Shippers.Find(toUpdate.ShipperID);
+            Shippers shipperToUpdate = db.Shippers.Find(toUpdate.ShipperID);
             if (shipperToUpdate == null)
                 throw new NullReferenceException();
             if (toUpdate.CompanyName.Length > 40)
@@ -56,7 +56,7 @@ namespace Slab.Net.EF.Logic
             shipperToUpdate.Orders = toUpdate.Orders;
             shipperToUpdate.Phone = toUpdate.Phone;
             shipperToUpdate.CompanyName = toUpdate.CompanyName;
-            _context.SaveChanges();
+            db.SaveChanges();
         }
 
     }

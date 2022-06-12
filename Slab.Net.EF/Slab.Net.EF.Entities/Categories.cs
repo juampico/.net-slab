@@ -28,5 +28,10 @@ namespace Slab.Net.EF.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products> Products { get; set; }
+
+        public override string ToString()
+        {
+            return $"Categoria: {CategoryID} \t Nombre: {CategoryName} \t Descripcion: {Description}";
+        }
     }
 }

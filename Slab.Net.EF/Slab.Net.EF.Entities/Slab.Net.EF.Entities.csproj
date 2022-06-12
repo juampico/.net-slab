@@ -54,6 +54,10 @@
     <Compile Include="Categories.cs" />
     <Compile Include="CustomerDemographics.cs" />
     <Compile Include="Customers.cs" />
+    <Compile Include="Dto\CategoriesDTO.cs" />
+    <Compile Include="Dto\CustomerOrderDTO.cs" />
+    <Compile Include="Dto\CustomerOrdersQuantityDTO.cs" />
+    <Compile Include="Dto\LowerUpperCaseDTO.cs" />
     <Compile Include="Employees.cs" />
     <Compile Include="Orders.cs" />
     <Compile Include="Order_Details.cs" />

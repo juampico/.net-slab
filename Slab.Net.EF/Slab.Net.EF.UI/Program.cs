@@ -3,157 +3,126 @@ using Slab.Net.EF.Entities;
 using Slab.Net.EF.Logic;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Slab.Net.EF.UI
 {
     internal class Program
     {
-        readonly static ShippersLogic shippersLogic = new ShippersLogic();
-        readonly static CustomersLogic customersLogic = new CustomersLogic();
+
         static void Main(string[] args)
         {
             Menu();
+            //customersLogic.GetCustomerAndOrdersQuantityQS();
             Console.ReadLine();
         }
+
 
         static void Menu()
         {
             CustomersUI customersUI = new CustomersUI();
-            ShippersUI shippersUI = new ShippersUI();
-            char option = ' ';
-            string id;
-            bool flag = false;
-            while (option != 's')
+            ProductsUI productsUI = new ProductsUI();
+            string option = "";
+            while (option != "s")
             {
                 Console.Clear();
                 Console.WriteLine("Ingrese la opcion que desea ejecutar o 's' para salir del programa \n" +
-                    "1. Listar todos los clientes \n" +
-                    "2. Listar todos los transportistas \n" +
-                    "3. Buscar cliente por ID \n" +
-                    "4. Buscar transportista por ID \n" +
-                    "5. Agregar transportista \n" +
-                    "6. Eliminar transportista por ID \n" +
-                    "7. Agregar cliente \n" +
-                    "8. Eliminar cliente por ID \n" +
-                    "9. Actualizar transportista por ID");
-                option = Console.ReadKey().KeyChar;
+                    "1. Query para devolver objeto customer \n" +
+                    "2. Query para devolver todos los productos sin stock \n" +
+                    "3. Query para devolver todos los productos que tienen stock y que cuestan más de 3 por unidad \n" +
+                    "4. Query para devolver todos los customers de la Región WA \n" +
+                    "5. Query para devolver el primer elemento o nulo de una lista de productos donde el ID de producto sea igual a 789 \n" +
+                    "6. Query para devolver los nombre de los Customers. Mostrarlos en Mayuscula y en Minuscula. \n" +
+                    "7. Query para devolver Join entre Customers y Orders donde los customers sean de la Región WA y la fecha de orden sea mayor a 1 / 1 / 1997. \n" +
+                    "8. Query para devolver los primeros 3 Customers de la  Región WA \n" +
+                    "9. Query para devolver lista de productos ordenados por nombre \n" +
+                    "10. Query para devolver lista de productos ordenados por unit in stock de mayor a menor. \n" +
+                    "11. Query para devolver las distintas categorías asociadas a los productos \n" +
+                    "12. Query para devolver el primer elemento de una lista de productos \n" +
+                    "13. Query para devolver los customer con la cantidad de ordenes asociadas");
+                option = Console.ReadLine();
                 switch (option)
                 {
-                    case '1':
+                    case "1":
                         Console.Clear();
-                        customersUI.ListShippers();
+                        customersUI.CustomerObject();
                         Console.WriteLine("---- Oprima ENTER para volver al menú ----");
                         Console.ReadLine();
                         break;
-                    case '2':
+                    case "2":
                         Console.Clear();
-                        shippersUI.ListShippers();
+                        productsUI.ListProductsNonStock();
                         Console.WriteLine("---- Oprima ENTER para volver al menú ----");
                         Console.ReadLine();
                         break;
-                    case '3':
-                        while (!flag)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Ingrese el ID del cliente que desea buscar");
-                            try
-                            {
-                                id = Console.ReadLine();
-                                flag = true;
-                                customersUI.PrintCustomer(id);
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex.Message);
-                            }
-                        }
-                        flag = false;
-                        Console.WriteLine("---- Oprima ENTER para volver al menú ----");
-                        Console.ReadLine();
-                        break;
-                    case '4':
-                        while (!flag)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Ingrese el ID del transportista que desea buscar");
-                            try
-                            {
-                                id = Console.ReadLine();
-                                shippersUI.PrintShipper(Int32.Parse(id));
-                                flag = true;
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex.Message);
-                            }
-                        }
-                        flag = false;
-                        Console.WriteLine("---- Oprima ENTER para volver al menú ----");
-                        Console.ReadLine();
-                        break;
-                    case '5':
+                    case "3":
                         Console.Clear();
-                        shippersUI.AddShipper();
+                        productsUI.ListProductsWithStockAndPricePerUnitGreather(3);
                         Console.WriteLine("---- Oprima ENTER para volver al menú ----");
                         Console.ReadLine();
                         break;
-                    case '6':
-                        while (!flag)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Ingrese el ID del transportista que desea eliminar");
-                            try
-                            {
-
-                                id = Console.ReadLine();
-                                flag = true;
-                                shippersUI.RemoveShipper(Int32.Parse(id));
-                            }
-                            catch (FormatException)
-                            {
-                                Console.WriteLine("El ID debe ser de tipo entero");
-                            }
-                        }
-                        flag = false;
-                        Console.WriteLine("---- Oprima ENTER para volver al menú ----");
-                        Console.ReadLine();
-                        break;
-                    case '7':
+                    case "4":
                         Console.Clear();
-                        customersUI.AddCustomer();
+                        customersUI.ListCustomersByRegion("WA");
                         Console.WriteLine("---- Oprima ENTER para volver al menú ----");
                         Console.ReadLine();
                         break;
-                    case '8':
+                    case "5":
                         Console.Clear();
-                        Console.WriteLine("Ingrese el ID del cliente que desea eliminar");
-                        id = Console.ReadLine();
-                        customersUI.RemoveCustomer(id);
+                        productsUI.FirstProductsById(789);
                         Console.WriteLine("---- Oprima ENTER para volver al menú ----");
                         Console.ReadLine();
                         break;
-                    case '9':
-                        while (!flag)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Ingrese el ID del transportista que desea actualizar");
-                            try
-                            {
-
-                                id = Console.ReadLine();
-                                flag = true;
-                                shippersUI.UpdateShipper(Int32.Parse(id));
-                            }
-                            catch (FormatException)
-                            {
-                                Console.WriteLine("El ID debe ser de tipo entero");
-                            }
-                        }
-                        flag = false;
+                    case "6":
+                        Console.Clear();
+                        customersUI.ListLowerAndUpperCustomersName();
                         Console.WriteLine("---- Oprima ENTER para volver al menú ----");
                         Console.ReadLine();
                         break;
-                    case 's':
+                    case "7":
+                        Console.Clear();
+                        DateTime date = new DateTime(1997, 1, 1);
+                        customersUI.ListCustomersAndOrdersByRegionAndDateGreather("WA", date);
+                        Console.WriteLine("---- Oprima ENTER para volver al menú ----");
+                        Console.ReadLine();
+                        break;
+                    case "8":
+                        Console.Clear();
+                        customersUI.FirstNCustomersByRegion(3,"WA");
+                        Console.WriteLine("---- Oprima ENTER para volver al menú ----");
+                        Console.ReadLine();
+                        break;
+                    case "9":
+                        Console.Clear();
+                        productsUI.ListProductsOrderByName();
+                        Console.WriteLine("---- Oprima ENTER para volver al menú ----");
+                        Console.ReadLine();
+                        break;
+                    case "10":
+                        Console.Clear();
+                        productsUI.ListProductsOrderByUnitInStockDesc();
+                        Console.WriteLine("---- Oprima ENTER para volver al menú ----");
+                        Console.ReadLine();
+                        break;
+                    case "11":
+                        Console.Clear();
+                        productsUI.ListProductsCategories();
+                        Console.WriteLine("---- Oprima ENTER para volver al menú ----");
+                        Console.ReadLine();
+                        break;
+                    case "12":
+                        Console.Clear();
+                        productsUI.FirstProduct();
+                        Console.WriteLine("---- Oprima ENTER para volver al menú ----");
+                        Console.ReadLine();
+                        break;
+                    case "13":
+                        Console.Clear();
+                        customersUI.ListCustomersAndOrdersQuantity();
+                        Console.WriteLine("---- Oprima ENTER para volver al menú ----");
+                        Console.ReadLine();
+                        break;
+                    case "s":
                         break;
                     default:
                         Console.Clear();
@@ -164,6 +133,6 @@ namespace Slab.Net.EF.UI
                 }
 
             }
-        }        
+        }   
     }
 }

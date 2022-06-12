@@ -1,6 +1,4 @@
-﻿using Slab.Net.EF.Commons.Exceptions;
-using Slab.Net.EF.Entities;
-using Slab.Net.EF.Logic;
+﻿using Slab.Net.EF.Logic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +7,14 @@ using System.Threading.Tasks;
 
 namespace Slab.Net.EF.UI
 {
-    internal class CustomersUI
+    internal class ProductsUI
     {
-        static CustomersLogic customersLogic = new CustomersLogic();
+        static ProductsLogic productsLogic = new ProductsLogic();
 
-        public CustomersUI() {}
-
-        internal void CustomerObject()
+        internal void ListProductsNonStock()
         {
-            var queryMS = customersLogic.GetCustomerMS();
-            var queryQS = customersLogic.GetCustomerQS();
-            Console.WriteLine($"Objeto Customer obtenido usando Method Sintax: \n {queryMS}");
-            Console.WriteLine("-------------------------------------- \n");
-            Console.WriteLine($"Objeto Customer obtenido usando Query Sintax: \n {queryQS}");
-        }
-
-        internal void ListCustomersByRegion(string region)
-        {
-            var queryMS = customersLogic.ListFromRegionMS(region);
-            var queryQS = customersLogic.ListFromRegionQS(region);
+            var queryMS = productsLogic.ListNonStockMS();
+            var queryQS = productsLogic.ListNonStockQS();
             Console.WriteLine("Resultados obtenidos usando Method Sintax:");
             foreach (var item in queryMS)
             {
@@ -41,45 +28,10 @@ namespace Slab.Net.EF.UI
             }
         }
 
-        internal void ListLowerAndUpperCustomersName()
+        internal void ListProductsWithStockAndPricePerUnitGreather(int price)
         {
-            var queryMS = customersLogic.ListLowerAndUpperCaseNamesMS();
-            var queryQS = customersLogic.ListLowerAndUpperCaseNamesQS();
-            Console.WriteLine("Resultados obtenidos usando Method Sintax:");
-            foreach (var item in queryMS)
-            {
-                Console.WriteLine($"\t Minuscula: {item.Lower} \t Mayuscula: {item.Upper}");
-            }
-            Console.WriteLine("-------------------------------------- \n");
-            Console.WriteLine("Resultados obtenidos usando Query Sintax:");
-            foreach (var item in queryQS)
-            {
-                Console.WriteLine($"\t Minuscula: {item.Lower} \t Mayuscula: {item.Upper}");
-            }
-        }
-
-        internal void ListCustomersAndOrdersByRegionAndDateGreather(string region, DateTime date)
-        {
-            var queryMS = customersLogic.ListCustomerOrdersByRegionAndDateGreatherMS(region, date);
-            var queryQS = customersLogic.ListCustomerOrdersByRegionAndDateGreatherQS(region, date);
-            Console.WriteLine("Resultados obtenidos usando Method Sintax:");
-            foreach (var item in queryMS)
-            {
-                Console.WriteLine($"\t {item}");
-            }
-            Console.WriteLine("-------------------------------------- \n");
-            Console.WriteLine("Resultados obtenidos usando Query Sintax:");
-            foreach (var item in queryQS)
-            {
-                Console.WriteLine($"\t {item}");
-            }
-
-        }
-
-        internal void FirstNCustomersByRegion(int n, string region)
-        {
-            var queryMS = customersLogic.GetTopNFromRegionMS(n, region);
-            var queryQS = customersLogic.GetTopNFromRegionQS(n, region);
+            var queryMS = productsLogic.ListWithStockAndUnitPriceGreatherMS(price);
+            var queryQS = productsLogic.ListWithStockAndUnitPriceGreatherQS(price);
             Console.WriteLine("Resultados obtenidos usando Method Sintax:");
             foreach (var item in queryMS)
             {
@@ -93,11 +45,67 @@ namespace Slab.Net.EF.UI
             }
         }
 
-
-        internal void ListCustomersAndOrdersQuantity()
+        internal void FirstProductsById(int id)
         {
-            var queryMS = customersLogic.ListCustomerAndOrdersQuantityMS();
-            var queryQS = customersLogic.ListCustomerAndOrdersQuantityMS();
+            var queryMS = productsLogic.GetFirstProductByIdMS(id);
+            var queryQS = productsLogic.GetFirstProductByIdQS(id);
+            Console.WriteLine("Resultados obtenidos usando Method Sintax:");
+            Console.WriteLine($"\t {queryMS}");
+            Console.WriteLine("-------------------------------------- \n");
+            Console.WriteLine("Resultados obtenidos usando Query Sintax:");
+            Console.WriteLine($"\t {queryQS}");
+            
+        }
+
+        internal void ListProductsOrderByName()
+        {
+            var queryMS = productsLogic.ListOrderByNameMS();
+            var queryQS = productsLogic.ListOrderByNameQS();
+            Console.WriteLine("Resultados obtenidos usando Method Sintax:");
+            foreach (var item in queryMS)
+            {
+                Console.WriteLine($"\t {item}");
+            }
+            Console.WriteLine("-------------------------------------- \n");
+            Console.WriteLine("Resultados obtenidos usando Query Sintax:");
+            foreach (var item in queryQS)
+            {
+                Console.WriteLine($"\t {item}");
+            }
+        }
+
+        internal void ListProductsOrderByUnitInStockDesc()
+        {
+            var queryMS = productsLogic.ListOrderByInStockMS();
+            var queryQS = productsLogic.ListOrderByInStockQS();
+            Console.WriteLine("Resultados obtenidos usando Method Sintax:");
+            foreach (var item in queryMS)
+            {
+                Console.WriteLine($"\t {item}");
+            }
+            Console.WriteLine("-------------------------------------- \n");
+            Console.WriteLine("Resultados obtenidos usando Query Sintax:");
+            foreach (var item in queryQS)
+            {
+                Console.WriteLine($"\t {item}");
+            }
+        }
+
+        internal void FirstProduct()
+        {
+            var queryMS = productsLogic.GetFirstMS();
+            var queryQS = productsLogic.GetFirstQS();
+            Console.WriteLine("Resultados obtenidos usando Method Sintax:");
+            Console.WriteLine($"\t {queryMS}");
+            Console.WriteLine("-------------------------------------- \n");
+            Console.WriteLine("Resultados obtenidos usando Query Sintax:");
+            Console.WriteLine($"\t {queryQS}");
+        }
+
+        internal void ListProductsCategories()
+        {
+            var queryMS = productsLogic.ListDistinctCategoriesMS();
+            var queryQS = productsLogic.ListDistinctCategoriesQS();
             Console.WriteLine("Resultados obtenidos usando Method Sintax:");
             foreach (var item in queryMS)
             {

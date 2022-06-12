@@ -45,5 +45,10 @@ namespace Slab.Net.EF.Entities
         public virtual ICollection<Order_Details> Order_Details { get; set; }
 
         public virtual Suppliers Suppliers { get; set; }
+
+        public override string ToString()
+        {
+            return $"Producto: {ProductID} \t Nombre: {ProductName} \t Cantidad por Unidad: {QuantityPerUnit} \t Precio Unitario: {UnitPrice} \t Unidades en stock: {UnitsInStock}";
+        }
     }
 }

@@ -55,5 +55,11 @@ namespace Slab.Net.EF.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerDemographics> CustomerDemographics { get; set; }
+
+        public override string ToString()
+        {
+            return $"ID: {CustomerID} \t CompanyName: {CompanyName} \t ContactName: {ContactName} \t Region: {Region}";
+        }
+
     }
 }
