@@ -19,23 +19,23 @@ namespace Slab.Net.EF.UI
         {
             foreach (Customers customer in customersLogic.GetAll())
             {
-                Console.WriteLine($"Cliente {customer.CustomerID} | Nombre: {customer.ContactName} | Pais: {customer.Country}");
+                Console.WriteLine($"Cliente {customer.CustomerID} | Nombre: {customer.CompanyName} | Pais: {customer.Country}");
             }
         }
 
 
         public void PrintCustomer(string id)
         {
-            Customers customer = null;
+            Customers customer;
             try
             {
                 customer = customersLogic.Get(id);
+                Console.WriteLine($"Cliente {customer.CustomerID} | Nombre: {customer.CompanyName} | Pais: {customer.Country}");
             }
             catch (NullReferenceException)
             {
                 Console.Write($"No existe un cliente con ID: {id}");
             }
-            Console.WriteLine($"Cliente {customer.CustomerID} | Nombre: {customer.ContactName} | Pais: {customer.Country}");
         }
 
         public void AddCustomer()

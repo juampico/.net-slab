@@ -28,12 +28,12 @@ namespace Slab.Net.EF.UI
             try
             {
                 shipper = shippersLogic.Get(id);
+                Console.WriteLine($"Transportista {shipper.ShipperID} | Nombre: {shipper.CompanyName} | Telefono: {shipper.Phone}");
             }
             catch (NullReferenceException)
             {
                 Console.Write($"No existe un transportista con ID: {id}");
             }
-            Console.WriteLine($"Transportista {shipper.ShipperID} | Nombre: {shipper.CompanyName} | Telefono: {shipper.Phone}");
 
         }
 
