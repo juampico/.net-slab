@@ -46,7 +46,7 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td class="CustomerID Customer pt-3-half" >
+                            <td class="CustomerID Customer pt-3-half">
                                 <a href="Details/@item.CustomerID"><span>@Html.DisplayFor(modelItem => item.CustomerID)</span></a>
                             </td>
                             <td class="CompanyName pt-3-half" contenteditable="true">
@@ -198,7 +198,6 @@
         let url = "/Customers/Delete/" + customerID;
         if (confirm(`Seguro que quieres eliminar el cliente ${customerID}?`)) {
             $.post(url, { ID: customerID }, function (data) {
-                console.log(data)
                 if (data == "Deleted") {
                     row.remove();
                     alert(`Cliente ${customerID} eliminado!`);
@@ -247,6 +246,3 @@
         return true;
     }
 </script>
-</body>
-</html>
-<!-- Editable table -->
