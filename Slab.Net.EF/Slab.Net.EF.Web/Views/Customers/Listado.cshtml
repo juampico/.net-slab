@@ -1,0 +1,252 @@
+﻿@model List<Slab.Net.EF.Entities.Model.DTOS.CustomerDTO>
+
+@{
+    ViewBag.Title = "Clientes";
+}
+
+<!-- Editable table -->
+<div class="card">
+    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">
+        CLIENTES
+    </h3>
+    <div class="card-body">
+        <div id="table" class="table-editable">
+            <table id="tblCustomers" class="table table-bordered table-responsive-md table-striped text-center">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>CompanyName</th>
+                        <th>ContactName</th>
+                        <th>ContactTitle</th>
+                        <th>City</th>
+                        <th>PostalCode</th>
+                        <th>Country</th>
+                        <th>Phone</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tbl-body">
+                    <tr>
+                        <td class="CustomerID  pt-3-half" contenteditable="true"></td>
+                        <td class="CompanyName pt-3-half" contenteditable="true"></td>
+                        <td class="ContactName pt-3-half" contenteditable="true"></td>
+                        <td class="ContactTitle pt-3-half" contenteditable="true"></td>
+                        <td class="PostalCode pt-3-half" contenteditable="true"></td>
+                        <td class="City pt-3-half" contenteditable="true"></td>
+                        <td class="Country pt-3-half" contenteditable="true"></td>
+                        <td class="Phone pt-3-half" contenteditable="true"></td>
+                        <td class="pt-3-half">
+                            <span class="table-remove">
+                                <button type="button" class="Add btn btn-success btn-rounded btn-sm my-0">
+                                    Agregar
+                                </button>
+                            </span>
+                        </td>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="CustomerID Customer pt-3-half" >
+                                <a href="Details/@item.CustomerID"><span>@Html.DisplayFor(modelItem => item.CustomerID)</span></a>
+                            </td>
+                            <td class="CompanyName pt-3-half" contenteditable="true">
+                                <span>@Html.DisplayFor(modelItem => item.CompanyName)</span>
+                            </td>
+                            <td class="ContactName pt-3-half" contenteditable="true">
+                                <span>@Html.DisplayFor(modelItem => item.ContactName)</span>
+                            </td>
+                            <td class="ContactTitle pt-3-half" contenteditable="true">
+                                <span>@Html.DisplayFor(modelItem => item.ContactTitle)</span>
+                            </td>
+                            <td class="PostalCode pt-3-half" contenteditable="true">
+                                <span>@Html.DisplayFor(modelItem => item.PostalCode)</span>
+                            </td>
+                            <td class="City pt-3-half" contenteditable="true">
+                                <span>@Html.DisplayFor(modelItem => item.City)</span>
+                            </td>
+                            <td class="Country pt-3-half" contenteditable="true">
+                                <span>@Html.DisplayFor(modelItem => item.Country)</span>
+                            </td>
+                            <td class="Phone pt-3-half" contenteditable="true">
+                                <span>@Html.DisplayFor(modelItem => item.Phone)</span>
+                            </td>
+                            <td class="pt-3-half">
+                                <span class="table-update">
+                                    <button type="button" class="Edit btn btn-info btn-rounded btn-sm my-0" style="display:none;">
+                                        Editar
+                                    </button>
+                                </span>
+                                <span class="table-remove">
+                                    <button type="button" class="Delete btn btn-danger btn-rounded btn-sm my-0">
+                                        Borrar
+                                    </button>
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+
+    function AppendRow(row, customer) {
+        let span = `<span>${customer.CustomerID}</span>`
+        let a = $(".CustomerID", row).find("a");
+        a.html(span);
+        a.attr("href", `Details/${customer.CustomerID}`);
+        $(".CompanyName", row).find("span").html(customer.CompanyName);
+        $(".ContactName", row).find("span").html(customer.ContactName);
+        $(".ContactTitle", row).find("span").html(customer.ContactTitle);
+        $(".City", row).find("span").html(customer.City);
+        $(".PostalCode", row).find("span").html(customer.PostalCode);
+        $(".Country", row).find("span").html(customer.Country);
+        $(".Phone", row).find("span").html(customer.Phone);
+        $("#tbl-body").append(row);
+    };
+
+
+    //Add event handler.
+    $(".Add").on("click", function () {
+        let row = $(this).closest("tr");
+        let customer = {};
+        customer.CustomerID = row.find(".CustomerID").html();
+        customer.CompanyName = row.find(".CompanyName").html();
+        customer.ContactName = row.find(".ContactName").html();
+        customer.ContactTitle = row.find(".ContactTitle").html();
+        customer.City = row.find(".City").html();
+        customer.PostalCode = row.find(".PostalCode").html();
+        customer.Country = row.find(".Country").html();
+        customer.Phone = row.find(".Phone").html();
+        if (confirm(`Seguro que quieres agregar el cliente?`) && validateCustomer(customer)) {
+            $.ajax({
+                type: "POST",
+                url: "/Customers/Insert",
+                data: '{customer:' + JSON.stringify(customer) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data == "Added") {
+                        let row2 = $("#tbl-body tr:last-child");
+                        AppendRow(row2.clone(), customer)
+                        row.find(".CustomerID").html("")
+                        row.find(".CompanyName").html("")
+                        row.find(".ContactName").html("")
+                        row.find(".ContactTitle").html("")
+                        row.find(".City").html("")
+                        row.find(".PostalCode").html("")
+                        row.find(".Country").html("")
+                        row.find(".Phone").html("")
+                    } else {
+                        alert(`No se pudo agregar el cliente: ${data}`)
+                    }
+                }
+            });
+        }
+    });
+
+
+
+    //Edit event handler.
+    $("td").on("input", function () {
+        let row = $(this).closest("tr");
+        row.find(".Edit").show();
+        row.find(".Delete").hide();
+    });
+
+
+    //Update event handler.
+    $(".Edit").on("click", function () {
+        let row = $(this).closest("tr");
+        let customer = {};
+        customer.CustomerID = row.find(".CustomerID").find("span").html();
+        customer.CompanyName = row.find(".CompanyName").find("span").html();
+        customer.ContactName = row.find(".ContactName").find("span").html();
+        customer.ContactTitle = row.find(".ContactTitle").find("span").html();
+        customer.City = row.find(".City").find("span").html();
+        customer.PostalCode = row.find(".PostalCode").find("span").html();
+        customer.Country = row.find(".Country").find("span").html();
+        customer.Phone = row.find(".Phone").find("span").html();
+        if (confirm(`Seguro que quieres editar el cliente ${customer.CustomerID}?`) && validateCustomer(customer)) {
+            $.ajax({
+                type: "POST",
+                url: "/Customers/Update",
+                data: '{customer:' + JSON.stringify(customer) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data == "Updated") {
+                        alert("Cliente editado");
+                    } else {
+                        alert(`No se pudo editar el cliente: ${data}`)
+                    }
+                }
+            });
+            $(this).hide();
+            row.find(".Delete").show();
+        }
+    });
+
+
+    //Delete event handler.
+    $(".Delete").on("click", function () {
+        let row = $(this).closest("tr");
+        let customerID = row.find("span").html();
+        let url = "/Customers/Delete/" + customerID;
+        if (confirm(`Seguro que quieres eliminar el cliente ${customerID}?`)) {
+            $.post(url, { ID: customerID }, function (data) {
+                console.log(data)
+                if (data == "Deleted") {
+                    row.remove();
+                    alert(`Cliente ${customerID} eliminado!`);
+                }
+                else {
+                    alert(`No se pudo eliminar el cliente: ${data}`)
+                }
+            });
+        }
+    });
+
+
+    function validateCustomer(customer) {
+        if (customer.CustomerID == null || customer.CustomerID.length > 5) {
+            alert("ID invalido: No puede ser null y el tamaño maximo es 5");
+            return false;
+        }
+        if (customer.CompanyName == null || customer.CompanyName.length > 40) {
+            alert("CompanyName invalido: No puede ser null y el tamaño maximo es 40");
+            return false;
+        }
+        if (customer.ContactName.length > 30) {
+            alert("El largo maximo de ContactName es 30");
+            return false;
+        }
+        if (customer.ContactTitle.length > 30) {
+            alert("El largo maximo de ContactTitle es 30");
+            return false;
+        }
+        if (customer.City.length > 15) {
+            alert("El largo maximo de City es 15");
+            return false;
+        }
+        if (customer.PostalCode.length > 10) {
+            alert("El largo maximo de PostalCode es 10");
+            return false;
+        }
+        if (customer.Country.length > 15) {
+            alert("El largo maximo de Country es 15");
+            return false;
+        }
+        if (customer.Phone.length > 24) {
+            alert("El largo maximo de Phone es 24");
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+</html>
+<!-- Editable table -->

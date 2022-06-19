@@ -16,6 +16,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slab.Net.EF.LogicTests", "Slab.Net.EF.LogicTests\Slab.Net.EF.LogicTests.csproj", "{B1570493-2280-456D-84FD-FDCF6A68FF2B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slab.Net.EF.Web", "Slab.Net.EF.Web\Slab.Net.EF.Web.csproj", "{E6F773EE-1404-46C6-86ED-1FF2EE3DE442}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2E4A2624-A625-48D8-8531-51C753E75AB3} = {2E4A2624-A625-48D8-8531-51C753E75AB3}
+		{7E1A4774-E097-4193-AF26-8243617D6CEC} = {7E1A4774-E097-4193-AF26-8243617D6CEC}
+		{E473D1E4-F249-4448-836D-08DA535EEC46} = {E473D1E4-F249-4448-836D-08DA535EEC46}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
