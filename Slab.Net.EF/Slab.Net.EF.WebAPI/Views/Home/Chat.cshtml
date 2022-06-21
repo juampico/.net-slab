@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Chat";
+}
+
+
+<div class="card">
+    <div class="card-header">Chat</div>
+    <div class="card-body height3">
+        <ul class="chat-list" id="ch">
+            <li class="in">
+                <div class="chat-img">
+                    <img alt="Avtar" src="https://gcdn.emol.cl/curiosidades/files/2015/10/Chuck-Norris1.jpg">
+                </div>
+                <div class="chat-body">
+                    <div class="chat-message">
+                        <h5>Chuck Norris</h5>
+                        <p>Do you want to hear a joke?</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <button type="button" class="chiste btn btn-success btn-rounded btn-sm my-0" onclick="NuevoChiste()">Nuevo chiste</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://matchilling-chuck-norris-jokes-v1.p.rapidapi.com/jokes/random",
+        "method": "GET",
+        "headers": {
+            "accept": "application/json",
+            "X-RapidAPI-Key": "0b9145d1famsh1d6459bebc6777dp12ce87jsn4289cc6675ed",
+            "X-RapidAPI-Host": "matchilling-chuck-norris-jokes-v1.p.rapidapi.com"
+        }
+    };
+
+    function NuevoChiste() {
+        console.log("NASVAVS")
+        $.ajax(settings).done(function (response) {
+            console.log(response);
+            let chat = $("ul.chat-list");
+            let newChat = $(".in:first-child").clone();
+            newChat.find("p").html(response.value)
+            chat.append(newChat);
+        });
+    }
+
+</script>
+
+

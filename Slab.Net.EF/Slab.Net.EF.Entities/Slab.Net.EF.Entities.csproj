@@ -56,7 +56,10 @@
     <Compile Include="Customers.cs" />
     <Compile Include="Employees.cs" />
     <Compile Include="Model\DTOS\CustomerDTO.cs" />
+    <Compile Include="Model\DTOS\ShipperDTO.cs" />
+    <Compile Include="Model\DTOS\ShipperRequestDTO.cs" />
     <Compile Include="Model\Mapper\CustomersMapper.cs" />
+    <Compile Include="Model\Mapper\ShipperMapper.cs" />
     <Compile Include="Orders.cs" />
     <Compile Include="Order_Details.cs" />
     <Compile Include="Products.cs" />
