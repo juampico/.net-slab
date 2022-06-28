@@ -1,0 +1,12 @@
+<h3 mat-dialog-title align="center">Está seguro que desea eliminar el tranportista "{{this.data.name}}"?</h3>
+
+<mat-dialog-content>
+	<div fxLayout="row" fxLayoutAlign="end space-evenly" align="center">
+		<button mat-raised-button class="delete-button" color="warn" (click)="deleteShipper()">Eliminar</button>
+		<button mat-raised-button class="delete-button" color="primary" mat-dialog-close>Cancelar</button>
+	</div>
+</mat-dialog-content>
+
+<div>
+	<mat-progress-bar *ngIf="deleting" mode="indeterminate"></mat-progress-bar>
+</div>

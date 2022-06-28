@@ -4,9 +4,11 @@ using Slab.Net.EF.Logic;
 using System;
 using System.Net;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Slab.Net.EF.WebAPI.Controllers
 {
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ShippersController : ApiController
     {
         readonly ShippersLogic logic = new ShippersLogic();

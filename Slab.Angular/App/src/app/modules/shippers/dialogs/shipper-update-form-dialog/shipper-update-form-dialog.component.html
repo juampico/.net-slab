@@ -1,0 +1,32 @@
+<h2 mat-dialog-title align="center">ID: {{this.data.id}}</h2>
+
+<mat-dialog-content>
+	<div fxLayout="column" fxLayoutAlign="center center">
+		<form [formGroup]="form">
+			<div>
+				<mat-form-field appearance="fill">
+					<mat-label>CompanyName</mat-label>
+					<input matInput type="text" formControlName="name" required placeholder="{{this.data.name}}">
+					<mat-error *ngIf="form.hasError('required', 'name')">CompanyName is required</mat-error>
+                    <mat-error *ngIf="form.hasError('maxlength', 'name')">CompanyName max length is 40 characters</mat-error>
+				</mat-form-field>
+			</div>
+			<div>
+				<mat-form-field appearance="fill">
+					<mat-label>Phone</mat-label>
+					<input matInput type="text" formControlName="phone" placeholder="{{this.data.phone}}">
+					<mat-error *ngIf="form.hasError('maxlength', 'phone')">Phone Max. Length is 24 characters</mat-error>
+				</mat-form-field>
+			</div>
+		</form>
+
+	</div>
+</mat-dialog-content>
+
+<div>
+	<mat-progress-bar *ngIf="updating"  mode="indeterminate"></mat-progress-bar>
+	<div mat-dialog-actions align="center">
+		<button mat-flat-button color="primary" class="create-button" (click)="editShipper()">Editar</button>
+		<button mat-raised-button mat-dialog-close>Cerrar</button>
+	</div>
+</div>

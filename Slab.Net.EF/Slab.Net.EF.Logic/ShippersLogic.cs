@@ -25,7 +25,7 @@ namespace Slab.Net.EF.Logic
         {
             if (newItem.CompanyName.Length > 40)
                 throw new MaxLengthExceededException("CompanyName", 40);
-            if (newItem.Phone.Length > 24)
+            if (newItem.Phone != null && newItem.Phone.Length > 24)
                 throw new MaxLengthExceededException("Phone", 24);
             _context.Shippers.Add(newItem);
             _context.SaveChanges();
@@ -51,7 +51,7 @@ namespace Slab.Net.EF.Logic
                 throw new NullReferenceException();
             if (toUpdate.CompanyName.Length > 40)
                 throw new MaxLengthExceededException("CompanyName", 40);
-            if (toUpdate.Phone.Length > 24)
+            if (toUpdate.Phone != null && toUpdate.Phone.Length > 24)
                 throw new MaxLengthExceededException("Phone", 24);
             shipperToUpdate.Orders = toUpdate.Orders;
             shipperToUpdate.Phone = toUpdate.Phone;
