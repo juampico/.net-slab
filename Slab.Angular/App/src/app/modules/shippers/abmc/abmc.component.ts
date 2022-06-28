@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
@@ -21,14 +21,14 @@ import { ShipperAddFormDialogComponent } from '../dialogs/shipper-add-form-dialo
 export class ABMCComponent implements OnInit {
 
   shippers = []
-  displayedColumns: string[] = ['ShipperID', 'CompanyName', 'Phone', 'Info','Edit', 'Remove'];
+  displayedColumns: string[] = ['ShipperID', 'CompanyName', 'Phone', 'Info', 'Edit', 'Remove'];
   columnsToDisplay = ['ShipperID', 'CompanyName', 'Phone', 'Info', 'Edit', 'Remove'];
   constructor(
-		private readonly snackBar: MatSnackBar,
+    private readonly snackBar: MatSnackBar,
     private readonly shippersService: ShippersService,
-		private readonly dialog: MatDialog,
+    private readonly dialog: MatDialog,
     private readonly title: Title
-) { }
+  ) { }
 
   ngOnInit(): void {
     this.listShippers();
@@ -36,15 +36,15 @@ export class ABMCComponent implements OnInit {
   }
 
 
-  listShippers(){
-    this.shippersService.listShippers().subscribe( (data) => {
+  listShippers() {
+    this.shippersService.listShippers().subscribe((data) => {
       this.shippers = data;
     })
   }
 
   addShipper(): void {
-    this.dialog.open(ShipperAddFormDialogComponent).afterClosed().subscribe( () => this.listShippers());
-	}
+    this.dialog.open(ShipperAddFormDialogComponent).afterClosed().subscribe(() => this.listShippers());
+  }
 
 
   detailShipper(id: number, shipper: string, phone: string): void {
@@ -55,30 +55,30 @@ export class ABMCComponent implements OnInit {
         phone: phone
       }
     })
-	}
+  }
 
 
   editShipper(id: number, shipper: string, phone: string): void {
     //Podria ser haciendo un get con los details pero como la tabla no tiene mas datos no lo vi necesario en este caso
-		this.dialog.open(ShipperUpdateFormDialogComponent,
-			{
-				data: {
+    this.dialog.open(ShipperUpdateFormDialogComponent,
+      {
+        data: {
           id: id,
-					name: shipper,
+          name: shipper,
           phone: phone
-				}
-			}).afterClosed().subscribe( () => this.listShippers());
-	}
+        }
+      }).afterClosed().subscribe(() => this.listShippers());
+  }
 
-  deleteShipper(id: number,shipper: string): void {
-		this.dialog.open(ShipperDeleteDialogComponent,
-			{
-				data: {
+  deleteShipper(id: number, shipper: string): void {
+    this.dialog.open(ShipperDeleteDialogComponent,
+      {
+        data: {
           id: id,
-					name: shipper
-				}
-			}).afterClosed().subscribe( () => this.listShippers());
-	}
+          name: shipper
+        }
+      }).afterClosed().subscribe(() => this.listShippers());
+  }
 
 
 

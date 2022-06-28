@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ShippersService } from 'src/app/modules/api-rest/services/shippers.service';
 
-export interface ShipperDialogData{
+export interface ShipperDialogData {
   id: number,
   name: string,
   phone: string
@@ -24,11 +24,11 @@ export class ShipperUpdateFormDialogComponent implements OnInit {
   updating = false;
 
   constructor(
-		private readonly formBuilder: FormBuilder,
-		@Inject(MAT_DIALOG_DATA) public readonly data: ShipperDialogData,
-		private readonly dialogRef: MatDialogRef<ShipperUpdateFormDialogComponent>,
-		private readonly shippersService: ShippersService,
-		private readonly snackBar: MatSnackBar,
+    private readonly formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public readonly data: ShipperDialogData,
+    private readonly dialogRef: MatDialogRef<ShipperUpdateFormDialogComponent>,
+    private readonly shippersService: ShippersService,
+    private readonly snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -36,9 +36,9 @@ export class ShipperUpdateFormDialogComponent implements OnInit {
   }
 
   editShipper(): void {
-    if (this.form.valid){
+    if (this.form.valid) {
       this.updating = true;
-      let bodyShipper ={
+      let bodyShipper = {
         CompanyName: this.form.value.name,
         Phone: this.form.value.phone
       };

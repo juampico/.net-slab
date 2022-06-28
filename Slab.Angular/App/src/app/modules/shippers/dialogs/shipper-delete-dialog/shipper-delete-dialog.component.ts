@@ -7,7 +7,7 @@ import { ShippersService } from 'src/app/modules/api-rest/services/shippers.serv
 
 
 export interface TaskDeleteDialogData {
-	id: number,
+  id: number,
   name: string
 }
 
@@ -22,16 +22,16 @@ export class ShipperDeleteDialogComponent implements OnInit {
 
   deleting: boolean = false;
   constructor(
-		@Inject(MAT_DIALOG_DATA) public readonly data: TaskDeleteDialogData,
-		private readonly dialogRef: MatDialogRef<ShipperDeleteDialogComponent>,
-		private readonly snackBar: MatSnackBar,
+    @Inject(MAT_DIALOG_DATA) public readonly data: TaskDeleteDialogData,
+    private readonly dialogRef: MatDialogRef<ShipperDeleteDialogComponent>,
+    private readonly snackBar: MatSnackBar,
     private readonly shippersService: ShippersService
-) { }
+  ) { }
 
   ngOnInit(): void {
   }
 
-  deleteShipper(): void{
+  deleteShipper(): void {
     this.deleting = true;
     this.shippersService.deleteShippers(this.data.id).subscribe(
       (data) => {

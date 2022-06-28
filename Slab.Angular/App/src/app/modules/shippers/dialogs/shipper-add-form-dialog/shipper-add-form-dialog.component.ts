@@ -19,10 +19,10 @@ export class ShipperAddFormDialogComponent implements OnInit {
   creating = false;
 
   constructor(
-		private readonly formBuilder: FormBuilder,
-		private readonly dialogRef: MatDialogRef<ShipperAddFormDialogComponent>,
-		private readonly shippersService: ShippersService,
-		private readonly snackBar: MatSnackBar,
+    private readonly formBuilder: FormBuilder,
+    private readonly dialogRef: MatDialogRef<ShipperAddFormDialogComponent>,
+    private readonly shippersService: ShippersService,
+    private readonly snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -30,9 +30,9 @@ export class ShipperAddFormDialogComponent implements OnInit {
   }
 
   addShipper(): void {
-    if (this.form.valid){
+    if (this.form.valid) {
       this.creating = true;
-      let bodyShipper ={
+      let bodyShipper = {
         CompanyName: this.form.value.name,
         Phone: this.form.value.phone
       };
