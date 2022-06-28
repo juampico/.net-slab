@@ -42,7 +42,7 @@ export class ShipperDeleteDialogComponent implements OnInit {
       (error) => {
         console.log(error);
         this.deleting = false;
-        this.snackBar.open('Error deleting shipper ' + this.data.id + ': ' + error.status, '', { duration: 3000 })
+        this.snackBar.open('Error deleting shipper ' + this.data.id + ': by integrity restrictions', '', { duration: 3000 })
       }
     )
   }
